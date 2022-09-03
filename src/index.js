@@ -6,22 +6,30 @@
  * - Run `wrangler publish --name my-worker` to publish your worker
  */
 
+const HOURS = [0, 6, 7, 8, 9, 10, 12, 15, 18];
+
 export default {
   async scheduled(controller, env, ctx) {
     console.log('Scheduled request');
 
-    const init = {
-      method: 'POST',
-      headers: {
-        'User-Agent': 'ahsparrow',
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': env.GITHUB_TOKEN
-      },
-      body: JSON.stringify({"ref": "refs/heads/master"})
-    };
+    // Get UK local hour
+    const date = new Date().toLocaleString("en-US", {timeZone: "Europe/London"});
+    const hour = new Date(date).getHours();
 
-    const response = await fetch("https://api.github.com/repos/ahsparrow/navplot2/actions/workflows/navplot.yaml/dispatches", init)
-     .then((response) => response.text())
-     .then((txt) => console.log(txt));
-  },
+    if (HOURS.includes(hour)) {
+        const init = {
+          method: 'POST',
+          headers: {
+            'User-Agent': 'ahsparrow',
+            'Accept': 'application/vnd.github.v3+json',
+            'Authorization': env.GITHUB_TOKEN
+          },
+          body: JSON.stringify({"ref": "refs/heads/master"})
+        };
+
+        const response = await fetch("https://api.github.com/repos/ahsparrow/navplot2/actions/workflows/navplot.yaml/dispatches", init)
+         .then((response) => response.text())
+         .then((txt) => console.log(txt));
+    }
+  }
 };
