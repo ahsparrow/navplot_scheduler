@@ -1,0 +1,6 @@
+name = "navplot_scheduler"
+main = "src/index.js"
+compatibility_date = "2022-09-03"
+
+[triggers]
+crons = [ "1 * * * *" ]
