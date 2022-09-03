@@ -2,7 +2,7 @@
 
 Cloudflare worker to schedule a GitHub action from NavPlot
 
-# Cloudflare
+### Cloudflare
 
 1. Install wrangler
 
