@@ -6,13 +6,13 @@ Cloudflare worker to schedule a GitHub action from NavPlot
 
 1. Install wrangler
 
-        npm install -g wrangler
-        wrangler login
+        npm install wrangler
+        npx wrangler login
 
 2. Publish to cloudflare
 
-        wrangler publish
+        npx wrangler publish
 
 3. Set secret GITHUB token
 
-        wrangler secret put GITHUB_TOKEN
+        npx wrangler secret put GITHUB_TOKEN
