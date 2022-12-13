@@ -1,12 +1,14 @@
 /**
- * - Run `wrangler dev --local` in your terminal to start a development server
- * - Run `curl "http://localhost:8787/cdn-cgi/mf/scheduled"` to trigger the scheduled event
- * - Go back to the console to see what your worker has logged
- * - Update the Cron trigger in wrangler.toml (see https://developers.cloudflare.com/workers/wrangler/configuration/#triggers)
- * - Run `wrangler publish --name my-worker` to publish your worker
+ * Temporarilty update wrangler.toml with GitHub API key
+ * Run `npx wrangler dev --test-scheduled --local --env dev`
+ * Run `curl "http://localhost:8787/__scheduled?cron=*+*+*+*+*"` to test the
+ * scheduled event
+ * Run `wrangler publish --name navplot_scheduler
  */
 
-const HOURS = [0, 6, 7, 8, 9, 10, 12, 15, 18];
+import { Octokit } from "@octokit/rest";
+
+const HOURS = [0, 6, 7, 8, 9, 10, 12, 14, 15, 18, 16];
 
 export default {
   async scheduled(controller, env, ctx) {
@@ -17,19 +19,13 @@ export default {
     const hour = new Date(date).getHours();
 
     if (HOURS.includes(hour)) {
-        const init = {
-          method: 'POST',
-          headers: {
-            'User-Agent': 'ahsparrow',
-            'Accept': 'application/vnd.github.v3+json',
-            'Authorization': env.GITHUB_TOKEN
-          },
-          body: JSON.stringify({"ref": "refs/heads/master"})
-        };
+        const octokit = new Octokit({
+            auth: env.GITHUB_TOKEN
+        })
 
-        const response = await fetch("https://api.github.com/repos/ahsparrow/navplot2/actions/workflows/navplot.yaml/dispatches", init)
-         .then((response) => response.text())
-         .then((txt) => console.log(txt));
+        await octokit.request('POST /repos/ahsparrow/navplot2/actions/workflows/navplot.yaml/dispatches', {
+            ref: 'master',
+        })
     }
   }
 };
