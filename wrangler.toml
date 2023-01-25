@@ -3,7 +3,7 @@ main = "src/index.js"
 compatibility_date = "2022-09-03"
 
 [triggers]
-crons = [ "5 * * * *" ]
+crons = [ "15 * * * *" ]
 
 [env.dev]
 vars = { GITHUB_TOKEN = "<GITHUB_TOKEN>" }
