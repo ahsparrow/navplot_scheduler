@@ -8,7 +8,7 @@
 
 import { Octokit } from "@octokit/rest";
 
-const HOURS = [0, 6, 7, 8, 9, 10, 12, 14, 15, 18, 16];
+const HOURS = [0, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18];
 
 export default {
   async scheduled(controller, env, ctx) {
