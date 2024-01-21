@@ -10,6 +10,6 @@
     "deploy": "wrangler publish"
   },
   "dependencies": {
-    "@octokit/rest": "^19.0.5"
+    "@octokit/rest": "^20.0.2"
   }
 }
