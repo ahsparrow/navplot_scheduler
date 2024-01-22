@@ -8,7 +8,8 @@
 
 import { Octokit } from "@octokit/rest";
 
-const HOURS = [0, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18];
+// Trigger happens 10 minutes before the hour
+const HOURS = [0, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17];
 
 export default {
   async scheduled(controller, env, ctx) {
