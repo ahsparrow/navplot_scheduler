@@ -25,7 +25,7 @@ export default {
         })
 
         await octokit.request('POST /repos/ahsparrow/navplot2/actions/workflows/navplot.yaml/dispatches', {
-            ref: 'master',
+            ref: 'main',
         })
     }
   }
